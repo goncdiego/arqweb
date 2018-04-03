@@ -1,0 +1,80 @@
+GET /arqweb/monitores?tipo=led&marca=lg
+GET /arqweb/monitores?tipo=led&marca=samsung
+GET /arqweb/monitores?tipo=led&marca=viewsonic
+GET /arqweb/monitores?tipo=led&marca=benq
+GET /arqweb/monitores?tipo=led&marca=asus
+GET /arqweb/monitores?tipo=led
+GET /arqweb/monitores?tipo=profesional
+GET /arqweb/monitores?tipo=gamers
+GET /arqweb/monitores?tipo=todo
+
+GET /arqweb/teclado?tipo=todos
+GET /arqweb/teclado?tipo=inalambricos
+GET /arqweb/teclado?tipo=alambricos
+GET /arqweb/teclado?tipo=gamer
+
+GET /arqweb/mouse?tipo=todos
+GET /arqweb/mouse?tipo=inalambricos
+GET /arqweb/mouse?tipo=alambricos
+GET /arqweb/mouse?tipo=gamer
+
+GET /arqweb/procesadores?tipo=todos
+GET /arqweb/procesadores?tipo=amd
+GET /arqweb/procesadores?tipo=intel
+GET /arqweb/procesadores?tipo=amd_apu
+GET /arqweb/procesadores?tipo=amd_ryzen
+GET /arqweb/procesadores?tipo=intel_celeron
+GET /arqweb/procesadores?tipo=intel_pentium
+GET /arqweb/procesadores?tipo=intel_corei3
+GET /arqweb/procesadores?tipo=intel_corei5
+GET /arqweb/procesadores?tipo=intel_corei7
+
+
+GET /arqweb/motherboards?tipo=amd_socket_fm2
+GET /arqweb/motherboards?tipo=amd_socket_am3
+GET /arqweb/motherboards?tipo=amd_socket_fm4
+GET /arqweb/motherboards?tipo=intel_socket_1151
+GET /arqweb/motherboards?tipo=intel_socket_2066
+GET /arqweb/motherboards?tipo=intel&marca=evga
+GET /arqweb/motherboards?tipo=intel&marca=msi
+GET /arqweb/motherboards?tipo=intel&marca=asus
+GET /arqweb/motherboards?tipo=intel&marca=gigabyte
+GET /arqweb/motherboards?tipo=amd&marca=evga
+GET /arqweb/motherboards?tipo=amd&marca=msi
+GET /arqweb/motherboards?tipo=amd&marca=asus
+GET /arqweb/motherboards?tipo=amd&marca=gigabyte
+GET /arqweb/motherboards?tipo=todos
+
+GET /arqweb/memoria?tipo=sd&microsd
+GET /arqweb/memoria?tipo=ddr2
+GET /arqweb/memoria?tipo=ddr3
+GET /arqweb/memoria?tipo=ddr4
+
+GET /arqweb/placavideo?tipo=nvidia
+GET /arqweb/placavideo?tipo=ati
+
+GET /arqweb/almacenamiento?tipo=disco_externo
+GET /arqweb/almacenamiento?tipo=disco_interno
+GET /arqweb/almacenamiento?tipo=nas
+GET /arqweb/almacenamiento?tipo=solido
+GET /arqweb/almacenamiento?tipo=pendrive
+GET /arqweb/almacenamiento?tipo=todos
+
+GET /arqweb/gabinete?tipo=atx
+GET /arqweb/gabinete?tipo=microatx
+GET /arqweb/gabinete?tipo=fulltower
+GET /arqweb/gabinete?tipo=rack
+GET /arqweb/gabinete?marca=corsair
+GET /arqweb/gabinete?marca=thermatalke
+GET /arqweb/gabinete?marca=sentey
+
+GET /arqweb/cooler?tipo=procesador
+GET /arqweb/cooler?tipo=gabinete
+
+GET /arqweb/fuente?tipo=430_650_watts
+GET /arqweb/fuente?tipo=700_850_watts
+GET /arqweb/fuente?tipo=900_1300_watts
+GET /arqweb/fuente?tipo=todo
+
+GET /arqweb/nuevo_usuario
+
