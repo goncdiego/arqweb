@@ -1,3 +1,16 @@
+Login del Usuario:
+GET /arqweb/usuarios
+
+Crear Nuevo Usuario:
+POST GET /arqweb/nuevo_usuario
+
+Actualizar password del Usuario
+PUT /arqweb/usuarios
+
+Borrar cuenta del Usuario:
+DELETE /arqweb/usuarios
+
+
 GET /arqweb/monitores?tipo=led&marca=lg
 GET /arqweb/monitores?tipo=led&marca=samsung
 GET /arqweb/monitores?tipo=led&marca=viewsonic
@@ -76,5 +89,5 @@ GET /arqweb/fuente?tipo=700_850_watts
 GET /arqweb/fuente?tipo=900_1300_watts
 GET /arqweb/fuente?tipo=todo
 
-GET /arqweb/nuevo_usuario
+
 
