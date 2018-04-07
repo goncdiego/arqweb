@@ -5,6 +5,8 @@ GET /arqweb/productos/
 GET /arqweb/productos/monitores?tipo=led
 GET /arqweb/productos/monitores?tipo=gamer
 GET /arqweb/productos/monitores?tipo=profesional
+GET /arqweb/productos/monitores?precio=desc
+GET /arqweb/productos/monitores?precio=asc
 GET /arqweb/productos/monitores?tipo=profesional&pulgada=24
 GET /arqweb/productos/monitores?tipo=profesional&pulgada=27
 
@@ -15,10 +17,13 @@ PUT /arqweb/productos/monitores/{id}
 --------------------------------------------------------------------------------------------------
 "Placas de Video"
 
+GET /arqweb/productos/video/
+GET /arqweb/productos/video?precio=desc
+GET /arqweb/productos/video?precio=asc
 GET /arqweb/productos/video?marca=nvidia
 GET /arqweb/productos/video?marca=ati
-GET /arqweb/productos/video?marca=nvidia&ram=512
-GET /arqweb/productos/video?marca=ati&ram=512
+GET /arqweb/productos/video?marca=nvidia&ram=1024
+GET /arqweb/productos/video?marca=ati&ram=1024
 
 DELETE /arqweb/productos/video/{id}
 
@@ -28,6 +33,9 @@ PUT /arqweb/productos/video/{id}
 
 "Teclados"
 
+GET /arqweb/productos/teclado/
+GET /arqweb/productos/teclado?precio=desc
+GET /arqweb/productos/teclado?precio=asc
 GET /arqweb/productos/teclado?tipo=inalambrico
 GET /arqweb/productos/teclado?marca=alambrico
 GET /arqweb/productos/teclado?marca=gamer
@@ -41,6 +49,9 @@ PUT /arqweb/productos/teclado/{id}
 
 "Mouse"
 
+GET /arqweb/productos/mouse/
+GET /arqweb/productos/mouse?precio=desc
+GET /arqweb/productos/mouse?precio=asc
 GET /arqweb/productos/mouse?tipo=inalambrico
 GET /arqweb/productos/mouse?marca=alambrico
 GET /arqweb/productos/mouse?marca=gamer
@@ -55,6 +66,9 @@ PUT /arqweb/productos/mouse/{id}
 
 "Procesador"
 
+GET /arqweb/productos/procesador/
+GET /arqweb/productos/procesador?precio=desc
+GET /arqweb/productos/procesador?precio=asc
 GET /arqweb/productos/procesador?tipo=amd
 GET /arqweb/productos/procesador?tipo=intel
 
@@ -68,6 +82,9 @@ PUT /arqweb/productos/procesador/{id}
 
 "Placa Madre"
 
+GET /arqweb/productos/motherboard/
+GET /arqweb/productos/motherboard?precio=desc
+GET /arqweb/productos/motherboard?precio=asc
 GET /arqweb/productos/motherboard?tipo=intel
 GET /arqweb/productos/motherboard?tipo=amd
 GET /arqweb/productos/motherboard?tipo=intel&marca=gigabyte
@@ -83,7 +100,9 @@ PUT /arqweb/productos/motherboard/{id}
 
 "Memoria"
 
-
+GET /arqweb/productos/memoria/
+GET /arqweb/productos/memoria?precio=desc
+GET /arqweb/productos/memoria?precio=asc
 GET /arqweb/productos/memoria?tipo=sd&microsd
 GET /arqweb/productos/memoria?tipo=ddr2
 GET /arqweb/productos/memoria?tipo=ddr3
@@ -93,5 +112,42 @@ GET /arqweb/productos/memoria?tipo=ddr4
 DELETE /arqweb/productos/memoria/{id}
 
 PUT /arqweb/productos/memoria/{id}
+
+
+--------------------------------------------------------------------------------------------------
+
+"Almacenamiento"
+
+GET /arqweb/productos/almacenamiento/
+GET /arqweb/productos/almacenamiento?tipo=ssd
+GET /arqweb/productos/almacenamiento?tipo=externo
+GET /arqweb/productos/almacenamiento?tipo=interno
+GET /arqweb/productos/almacenamiento?precio=asc
+GET /arqweb/productos/almacenamiento?precio=desc
+GET /arqweb/productos/almacenamiento?precio=asc&tipo=ssd
+
+
+DELETE /arqweb/productos/almacenamiento/{id}
+
+PUT /arqweb/productos/almacenamiento/{id}
+
+--------------------------------------------------------------------------------------------------
+
+"Gabinete"
+
+GET /arqweb/productos/gabinete/
+GET /arqweb/productos/gabinete?tipo=atx
+GET /arqweb/productos/gabinete?precio=fulltower
+GET /arqweb/productos/gabinete?precio=asc
+GET /arqweb/productos/gabinete?precio=desc
+GET /arqweb/productos/gabinete?precio=asc&tipo=fulltower
+GET /arqweb/productos/gabinete?tipo=atx&marca=thermatalke
+
+
+DELETE /arqweb/productos/gabinete/{id}
+
+PUT /arqweb/productos/gabinete/{id}
+
+
 
 
