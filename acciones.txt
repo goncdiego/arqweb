@@ -1,5 +1,12 @@
 GET /arqweb/productos/
 
+POST /arqweb/productos/
+{
+"categoria":"consolas"
+}
+
+--------------------------------------------------------------------------------------------------
+
 "Monitores"
 
 GET /arqweb/productos/monitores?tipo=led
@@ -13,6 +20,18 @@ GET /arqweb/productos/monitores?tipo=profesional&pulgada=27
 DELETE /arqweb/productos/monitores/{id}
 
 PUT /arqweb/productos/monitores/{id}
+
+POST /arqweb/productos/monitores/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
 
 --------------------------------------------------------------------------------------------------
 "Placas de Video"
@@ -28,6 +47,18 @@ GET /arqweb/productos/video?marca=ati&ram=1024
 DELETE /arqweb/productos/video/{id}
 
 PUT /arqweb/productos/video/{id}
+
+POST /arqweb/productos/video/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
 
 --------------------------------------------------------------------------------------------------
 
@@ -45,6 +76,18 @@ DELETE /arqweb/productos/teclado/{id}
 
 PUT /arqweb/productos/teclado/{id}
 
+POST /arqweb/productos/teclados/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
+
 --------------------------------------------------------------------------------------------------
 
 "Mouse"
@@ -61,6 +104,18 @@ DELETE /arqweb/productos/mouse/{id}
 
 PUT /arqweb/productos/mouse/{id}
 
+POST /arqweb/productos/mouse/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
+
 --------------------------------------------------------------------------------------------------
 
 
@@ -76,6 +131,18 @@ GET /arqweb/productos/procesador?tipo=intel
 DELETE /arqweb/productos/procesador/{id}
 
 PUT /arqweb/productos/procesador/{id}
+
+POST /arqweb/productos/procesador/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
 
 --------------------------------------------------------------------------------------------------
 
@@ -96,6 +163,18 @@ DELETE /arqweb/productos/motherboard/{id}
 
 PUT /arqweb/productos/motherboard/{id}
 
+POST /arqweb/productos/motherboard/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
+
 --------------------------------------------------------------------------------------------------
 
 "Memoria"
@@ -112,6 +191,18 @@ GET /arqweb/productos/memoria?tipo=ddr4
 DELETE /arqweb/productos/memoria/{id}
 
 PUT /arqweb/productos/memoria/{id}
+
+POST /arqweb/productos/memoria/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
 
 
 --------------------------------------------------------------------------------------------------
@@ -131,6 +222,19 @@ DELETE /arqweb/productos/almacenamiento/{id}
 
 PUT /arqweb/productos/almacenamiento/{id}
 
+POST /arqweb/productos/almacenamiento/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
+
+
 --------------------------------------------------------------------------------------------------
 
 "Gabinete"
@@ -147,6 +251,19 @@ GET /arqweb/productos/gabinete?tipo=atx&marca=thermatalke
 DELETE /arqweb/productos/gabinete/{id}
 
 PUT /arqweb/productos/gabinete/{id}
+
+POST /arqweb/productos/gabinete/
+{
+"id":"",
+"categoria":"",
+"detalle":"",
+"precio":"",
+"stock":"",
+"marca":"",
+"modelo":"",
+"lote":""
+}
+
 
 
 
