@@ -1,9 +1,8 @@
-const express    = require('express');
+const express    = require('express');
 const bodyParser = require('body-parser');
 const moment     = require('moment');
-
 const app = express();
-
+
 var _products = [
 
     {id: 1, Categoria: 'Monitor', Pulgadas: 22, Marca: Samsung, Desc: Led, Precio: 6500 },
