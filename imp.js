@@ -5,17 +5,16 @@ const app = express();
 
 var _products = [
 
-    {id: 1, Categoria: 'Monitor', Pulgadas: 22, Marca: Samsung, Desc: Led, Precio: 6500 },
-    {id: 2, Categoria: 'Placa de Video', Marca: Asus, RAM: 12GB, Desc: PCI-E, Precio: 23500 },
-	{id: 3, Categoria: 'Procesador', Tipo: Intel, Desc: i7, Modelo: 7700, Precio: 13500 },
+    {id: 1, Categoria: 'Monitor', Tipo: Led-22Inch, Marca: Samsung, Precio: 6500 },
+    {id: 2, Categoria: 'Placa de Video', Tipo:PCI-E, Marca: Asus, Precio: 23500 },
+	{id: 3, Categoria: 'Procesador', Tipo: i7-Socket-1150, Marca: Intel, Precio: 13500 },
 	{id: 4, Categoria: 'Placa Madre', Tipo: ATX, Marca: Asus, Precio: 3500 },
-	{id: 5, Categoria: 'Memoria', Tipo: DDR4, Marca: Corsair, Capacidad: 16 GB, Precio: 2500 },
-	{id: 6, Categoria: 'Almacenamiento', Tipo: SSD, Capacidad: 256MB, Marca: Kingston, Precio: 11500 },
-	{id: 6, Catego7ia: 'Almacenamiento', Tipo: SSD, Capacidad: 512MB, Marca: Corsair, Precio: 14500 },
-	{id: 6, Categoria: 'Almacenamiento', Tipo: HD, Capacidad: 1TB, Marca: Seagate, Precio: 6500 },
-	{id: 8, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 3500 },
-	{id: 8, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 5500 },
-    {id: 8, Categoria: 'Gabinete', Tipo: Fulltower, Marca: Thermatalke, Precio: 9200 }
+	{id: 5, Categoria: 'Memoria', Tipo: DDR4-16GB, Marca: Corsair, Precio: 2500 },
+	{id: 6, Categoria: 'Almacenamiento', Tipo: SSD256MB, Marca: Kingston, Precio: 11500 },
+	{id: 7, Categoria: 'Almacenamiento', Tipo: SSD512MB, Marca: Corsair, Precio: 14500 },
+	{id: 8, Categoria: 'Almacenamiento', Tipo: HD1TB, Marca: Seagate, Precio: 6500 },
+	{id: 9, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 3500 },
+	{id: 10, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 5500 },
 
 ];
 
@@ -34,7 +33,12 @@ app.get('/', (req, res) => {
     let list = [];
     _products.forEach((p) => {
 
-        list.push(`<li>${p.nombre} - el id -: ${p.id}</li>`);
+	    list.push(`<li>Id: ${p.id}</li>`);
+        list.push(`<li>Categoria: ${p.categoria}</li>`);
+		list.push(`<li>Tipo: ${p.tipo}</li>`);
+		list.push(`<li>Marca: ${p.marca}</li>`);
+		list.push(`<li>Precio: ${p.precio}</li>`);
+		
     });
 
     res.send(
