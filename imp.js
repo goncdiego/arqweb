@@ -5,16 +5,13 @@ const app = express();
 
 var _products = [
 
-    {id: 1, Categoria: 'Monitor', Tipo: Led-22Inch, Marca: Samsung, Precio: 6500 },
-    {id: 2, Categoria: 'Placa de Video', Tipo:PCI-E, Marca: Asus, Precio: 23500 },
-	{id: 3, Categoria: 'Procesador', Tipo: i7-Socket-1150, Marca: Intel, Precio: 13500 },
-	{id: 4, Categoria: 'Placa Madre', Tipo: ATX, Marca: Asus, Precio: 3500 },
-	{id: 5, Categoria: 'Memoria', Tipo: DDR4-16GB, Marca: Corsair, Precio: 2500 },
-	{id: 6, Categoria: 'Almacenamiento', Tipo: SSD256MB, Marca: Kingston, Precio: 11500 },
-	{id: 7, Categoria: 'Almacenamiento', Tipo: SSD512MB, Marca: Corsair, Precio: 14500 },
-	{id: 8, Categoria: 'Almacenamiento', Tipo: HD1TB, Marca: Seagate, Precio: 6500 },
-	{id: 9, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 3500 },
-	{id: 10, Categoria: 'Gabinete', Tipo: ATX, Marca: Thermatalke, Precio: 5500 },
+    {id: 1, Categoria: 'Monitor', Tipo: 'Led-22Inch', Marca: 'Samsung', Precio: '6500' },
+    {id: 2, Categoria: 'Placa de Video', Tipo 'PCI-E', Marca: 'Asus', Precio: '23500' },
+	{id: 3, Categoria: 'Procesador', Tipo: 'i7-Socket-1150', Marca: 'Intel', Precio: '13500' },
+	{id: 4, Categoria: 'Placa Madre', Tipo: 'ATX', Marca: 'Asus', Precio: '3500' },
+	{id: 5, Categoria: 'Memoria', Tipo: 'DDR4-16GB', Marca: 'Corsair', Precio: '2500' },
+	{id: 6, Categoria: 'Almacenamiento', Tipo: 'SSD256MB', Marca: 'Kingston', Precio: '11500' },
+	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' },
 
 ];
 
