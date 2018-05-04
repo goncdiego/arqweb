@@ -6,12 +6,13 @@ const app = express();
 var _products = [
 
     {id: 1, Categoria: 'Monitor', Tipo: 'Led-22Inch', Marca: 'Samsung', Precio: '6500' },
-    {id: 2, Categoria: 'Placa de Video', Tipo 'PCI-E', Marca: 'Asus', Precio: '23500' },
+    {id: 8, Categoria: 'Monitor', Tipo: 'Led-26Inch', Marca: 'Samsung', Precio: '8500' },
+    {id: 2, Categoria: 'GPU', Tipo: 'PCI-E', Marca: 'Asus', Precio: '23500' },
 	{id: 3, Categoria: 'Procesador', Tipo: 'i7-Socket-1150', Marca: 'Intel', Precio: '13500' },
 	{id: 4, Categoria: 'Placa Madre', Tipo: 'ATX', Marca: 'Asus', Precio: '3500' },
 	{id: 5, Categoria: 'Memoria', Tipo: 'DDR4-16GB', Marca: 'Corsair', Precio: '2500' },
 	{id: 6, Categoria: 'Almacenamiento', Tipo: 'SSD256MB', Marca: 'Kingston', Precio: '11500' },
-	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' },
+	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' }
 
 ];
 
@@ -31,10 +32,10 @@ app.get('/', (req, res) => {
     _products.forEach((p) => {
 
 	    list.push(`<li>Id: ${p.id}</li>`);
-        list.push(`<li>Categoria: ${p.categoria}</li>`);
-		list.push(`<li>Tipo: ${p.tipo}</li>`);
-		list.push(`<li>Marca: ${p.marca}</li>`);
-		list.push(`<li>Precio: ${p.precio}</li>`);
+        list.push(`<li>Categoria: ${p.Categoria}</li>`);
+		list.push(`<li>Tipo: ${p.Tipo}</li>`);
+		list.push(`<li>Marca: ${p.Marca}</li>`);
+		list.push(`<li>Precio: ${p.Precio}</li>`);
 		
     });
 
@@ -65,35 +66,30 @@ app.post('/arqweb/productos', (req, res) => {
     _products.push(req.body);
     res.status(201).send(req.body);
 });
+//-----------------------------------------------Monitores---------------------------------------------------
 
-// Obtener monitor por el tipo
-app.get('/arqweb/productos/monitores/:tipo', (req, res) => {
-
-    let pro = _products.find(p => p.tipo == req.params.tipo);
-    if(pro) {
-        res.json(pro);
-    } else {
-        res.status(404).end();
+// Obtener monitor por su marca y/o tipo
+app.get('/arqweb/productos/monitores', (req, res) => {
+    // http://localhost:3000/arqweb/productos/monitores?tipo=Led-22Inch&marca=Samsung
+    // http://localhost:3000/arqweb/productos/monitores/
+    console.log(req.query);
+    let prods = [];
+    var arrayLength = _products.length;
+    if(req.query.marca == null && req.query.tipo == null ){ //es un get a toda la categoria monitores
+        for (var i = 0; i < arrayLength; i++) {
+            if( _products[i].Categoria == 'Monitor'){
+                prods.push(_products[i]);
+            }
+        }
+    }else{//utilizo algun fitro con query param
+        for (var i = 0; i < arrayLength; i++) {
+            if((_products[i].Marca == req.query.marca || _products[i].Tipo == req.query.tipo) &&  _products[i].Categoria == 'Monitor'){
+                prods.push(_products[i]);
+            }
+        }
     }
-});
-
-// Obtener monitor por su marca
-app.get('/arqweb/productos/monitores/:marca', (req, res) => {
-
-    let pro = _products.find(p => p.marca == req.params.tipo);
-    if(pro) {
-        res.json(pro);
-    } else {
-        res.status(404).end();
-    }
-});
-
-// Obtener monitor por precio
-app.get('/arqweb/productos/monitores/:precio', (req, res) => {
-
-    let pro = _products.find(p => p.precio == req.params.precio);
-    if(pro) {
-        res.json(pro);
+    if(prods) {
+        res.json(prods);
     } else {
         res.status(404).end();
     }
@@ -101,208 +97,46 @@ app.get('/arqweb/productos/monitores/:precio', (req, res) => {
 
 //borrar un monitor por id
 app.delete('/arqweb/productos/monitores/:id', (req, res) => {
-    _products = _products.filter(p => p.id != req.params.id);
+   // http://localhost:3000/arqweb/productos/monitores/8
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Monitor'){
+            _products.splice(_products[i], 1);
+            res.json(_products);
+        }
+    }
     res.status(204).end();
 });
 
 // Submit de monitores
 app.post('/arqweb/productos/monitores', (req, res) => {
+    
+    var nuevoMonitor = req.body;
+    nuevoMonitor.Categoria = 'Monitor';
+    console.log(nuevoMonitor);
     _products.push(req.body);
     res.status(201).send(req.body);
 });
 
-// Obtener Placa de video por id
-app.get('/arqweb/productos/video/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
+// Update de monitores
+app.put('/arqweb/productos/monitores/:id', (req, res) => {
+    console.log(req.body);
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Monitor'){
+            _products.splice(_products[i], 1);//borro el registro viejo
+            _products.push(req.body);//persisto el nuevo, faltaria validar que esten los campos completos en el json del request...
+            res.json(_products);
+        }
     }
+    res.status(204).end();
 });
 
-// Obtener placa de video por precio
-app.get('/arqweb/productos/video/:precio', (req, res) => {
-
-    let pro = _products.find(p => p.precio == req.params.precio);
-    if(pro) {
-        res.json(pro);
-    } else {
-        res.status(404).end();
-    }
-});
-
-
-
-// Obtener teclado por id
-app.get('/arqweb/productos/teclado/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener mouse por id
-app.get('/arqweb/productos/mouse/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener procesador por id
-app.get('/arqweb/productos/procesador/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener motherboard por id
-app.get('/arqweb/productos/mother/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener memorias ram por id
-app.get('/arqweb/productos/memoria/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener los dispositivos de almacenamiento por id
-app.get('/arqweb/productos/almacenamiento/:id', (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener gabinetes por id
-app.get('/arqweb/productos/gabinete (req, res) => {
-
-    let pro = _products.find(p => p.id == req.params.id);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-// Obtener gabinetes por precio
-app.get('/arqweb/productos/gabinete (req, res) => {
-
-    let pro = _products.find(p => p.precio == req.params.precio);
-    if(pro) {
-
-        res.json(pro);
-
-    } else {
-
-        res.status(404).end();
-    }
-});
-
-
-// Submit de placas de video
-app.post('/arqweb/productos/video', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Submit de teclados
-app.post('/arqweb/productos/teclado', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Enviar mouse
-app.post('/arqweb/productos/mouse', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Submit de procesadores
-app.post('/arqweb/productos/procesador', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Submit de motherboards
-app.post('/arqweb/productos/motherboard', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Submit de memorias ram
-app.post('/arqweb/productos/memoria', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Submit de dispositivos de almacenamiento
-app.post('/arqweb/productos/almacenamiento', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
-
-// Hacer un Submit de todos gabinetes
-app.post('/arqweb/productos/gabinete', (req, res) => {
-    _products.push(req.body);
-    res.status(201).send(req.body);
-});
 
 
 // start server
 app.listen(process.env.PORT || 3000, function () {
     console.log('API andando con express...');
 });
-
-
