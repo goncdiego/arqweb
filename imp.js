@@ -11,7 +11,7 @@ var _products = [
 	{id: 3, Categoria: 'Procesador', Tipo: 'i7-Socket-1150', Marca: 'Intel', Precio: '13500' },
 	{id: 4, Categoria: 'Placa Madre', Tipo: 'ATX', Marca: 'Asus', Precio: '3500' },
 	{id: 5, Categoria: 'Memoria', Tipo: 'DDR4-16GB', Marca: 'Corsair', Precio: '2500' },
-	{id: 6, Categoria: 'Almacenamiento', Tipo: 'SSD256MB', Marca: 'Kingston', Precio: '11500' },
+	{id: 6, Categoria: 'Placa de Video', Tipo: 'NVIDIA12GB', Marca: 'Asus', Precio: '25500' },
 	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' }
 
 ];
@@ -135,8 +135,148 @@ app.put('/arqweb/productos/monitores/:id', (req, res) => {
 });
 
 
+//-----------------------------------------------Placas de Videos---------------------------------------------------
+
+
+// Obtener placa de video por su marca y/o ram
+app.get('/arqweb/productos/video', (req, res) => {
+    // http://localhost:3000/arqweb/productos/video?marca=nvidia&ram=12000
+    // http://localhost:3000/arqweb/productos/video/
+    console.log(req.query);
+    let prods = [];
+    var arrayLength = _products.length;
+    if(req.query.marca == null && req.query.ram == null ){ //es un get a toda la categoria placa video
+        for (var i = 0; i < arrayLength; i++) {
+            if( _products[i].Categoria == 'Placas de Video'){
+                prods.push(_products[i]);
+            }
+        }
+    }else{//utilizo algun fitro con query param
+        for (var i = 0; i < arrayLength; i++) {
+            if((_products[i].Marca == req.query.marca || _products[i].Tipo == req.query.tipo) &&  _products[i].Categoria == 'Placa de Video'){
+                prods.push(_products[i]);
+            }
+        }
+    }
+    if(prods) {
+        res.json(prods);
+    } else {
+        res.status(404).end();
+    }
+});
+
+//borrar una placa de video por su id
+app.delete('/arqweb/productos/video/:id', (req, res) => {
+   // http://localhost:3000/arqweb/productos/video/6
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Placa de Video'){
+            _products.splice(_products[i], 1);
+            res.json(_products);
+        }
+    }
+    res.status(204).end();
+});
+
+// Submit de Placa de Video
+app.post('/arqweb/productos/video', (req, res) => {
+    var nuevoVideo = req.body;
+    nuevoVideo.Categoria = 'Placa de Video';
+    console.log(nuevoVideo);
+    _products.push(req.body);
+	//codigo de respuesta 201 CREATED, indica que se creo de manera correcta
+    res.status(201).send(req.body);
+});
+
+// Update de Placas de Video
+app.put('/arqweb/productos/video/:id', (req, res) => {
+    console.log(req.body);
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Placa de Video'){
+            _products.splice(_products[i], 1);//borro el registro viejo
+            _products.push(req.body);//persisto el nuevo, faltaria validar que esten los campos completos en el json del request...
+            res.json(_products);
+        }
+    }
+	//devuelvo un 204 no content, no hay datos para devolver 
+    res.status(204).end();
+});
+
+//-----------------------------------------------Procesadores---------------------------------------------------
+
+// Obtener un procesador por su precio de manera desc y tambien su marca
+
+app.get('/arqweb/productos/monitores', (req, res) => {
+    // http://localhost:3000/arqweb/productos/procesador?precio=desc&marca=intel
+    // http://localhost:3000/arqweb/productos/procesador/
+    console.log(req.query);
+    let prods = [];
+    var arrayLength = _products.length;
+    if(req.query.precio == null && req.query.marca == null ){ //es un get a toda la categoria procesadores
+        for (var i = 0; i < arrayLength; i++) {
+            if( _products[i].Categoria == 'Procesador'){
+                prods.push(_products[i]);
+            }
+        }
+    }else{//utilizo algun fitro con query param
+        for (var i = 0; i < arrayLength; i++) {
+            if((_products[i].Marca == req.query.marca || _products[i].Tipo == req.query.tipo) &&  _products[i].Categoria == 'Procesador'){
+                prods.push(_products[i]);
+            }
+        }
+    }
+    if(prods) {
+        res.json(prods);
+    } else {
+        res.status(404).end();
+    }
+});
+
+//borrar un procesador por id
+app.delete('/arqweb/productos/procesador/:id', (req, res) => {
+   // http://localhost:3000/arqweb/productos/procesador/3
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Procesador'){
+            _products.splice(_products[i], 1);
+            res.json(_products);
+        }
+    }
+    res.status(204).end();
+});
+
+// Submit de Procesadores
+app.post('/arqweb/productos/procesador', (req, res) => {
+    
+    var nuevoProcesador = req.body;
+    nuevoProcesador.Categoria = 'Procesador';
+    console.log(nuevoProcesador);
+    _products.push(req.body);
+    res.status(201).send(req.body);
+});
+
+// Update de Procesador
+app.put('/arqweb/productos/procesador/:id', (req, res) => {
+    console.log(req.body);
+    console.log(req.params);
+    var arrayLength = _products.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Procesador'){
+            _products.splice(_products[i], 1); //borro el registro viejo
+            _products.push(req.body);//persisto el nuevo, faltaria validar que esten los campos completos en el json del request...
+            res.json(_products);
+        }
+    }
+    res.status(204).end();
+});
 
 // start server
 app.listen(process.env.PORT || 3000, function () {
     console.log('API andando con express...');
 });
+
+
