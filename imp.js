@@ -1,6 +1,9 @@
 const express    = require('express');
 const bodyParser = require('body-parser');
 const moment     = require('moment');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
 const app = express();
 
 var _products = [
@@ -15,6 +18,12 @@ var _products = [
 	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' }
 
 ];
+
+
+const url = 'mongodb://127.0.0.1:27017/test';
+
+//creo y conecto con la base de datos mongodb
+
 
 // parse body as json
 app.use(bodyParser.json());
@@ -72,29 +81,41 @@ app.post('/arqweb/productos', (req, res) => {
 app.get('/arqweb/productos/monitores', (req, res) => {
     // http://localhost:3000/arqweb/productos/monitores?tipo=Led-22Inch&marca=Samsung
     // http://localhost:3000/arqweb/productos/monitores/
-    console.log(req.query);
-    let prods = [];
-    var arrayLength = _products.length;
-    if(req.query.marca == null && req.query.tipo == null ){ //es un get a toda la categoria monitores
-        for (var i = 0; i < arrayLength; i++) {
-            if( _products[i].Categoria == 'Monitor'){
-                prods.push(_products[i]);
-            }
+   //console.log(req.query);
+   //let prods = [];
+   //var arrayLength = _products.length;
+   //if(req.query.marca == null && req.query.tipo == null ){ //es un get a toda la categoria monitores
+   //    for (var i = 0; i < arrayLength; i++) {
+   //        if( _products[i].Categoria == 'Monitor'){
+   //            prods.push(_products[i]);
+   //        }
+   //    }
+   //}else{//utilizo algun fitro con query param
+   //    for (var i = 0; i < arrayLength; i++) {
+   //        if((_products[i].Marca == req.query.marca || _products[i].Tipo == req.query.tipo) &&  _products[i].Categoria == 'Monitor'){
+   //            prods.push(_products[i]);
+   //        }
+   //    }
+   //}
+    var resultArray = [];
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      var cursor = db.collection('Monitor').find();
+      cursor.forEach(function(doc, err) {
+        assert.equal(null, err);
+        resultArray.push(doc);
+      }, function() {
+        db.close();
+        if(resultArray) {
+            res.json(resultArray);
+        } else {
+            res.status(404).end();
         }
-    }else{//utilizo algun fitro con query param
-        for (var i = 0; i < arrayLength; i++) {
-            if((_products[i].Marca == req.query.marca || _products[i].Tipo == req.query.tipo) &&  _products[i].Categoria == 'Monitor'){
-                prods.push(_products[i]);
-            }
-        }
-    }
-    if(prods) {
-        res.json(prods);
-    } else {
-        res.status(404).end();
-    }
-});
+      });
+    });
+  });
 
+/*
 //borrar un monitor por id
 app.delete('/arqweb/productos/monitores/:id', (req, res) => {
    // http://localhost:3000/arqweb/productos/monitores/8
@@ -108,6 +129,32 @@ app.delete('/arqweb/productos/monitores/:id', (req, res) => {
     }
     res.status(204).end();
 });
+*/
+
+//DELETE de un monitor por id utilizando mongoDB
+app.delete('/arqweb/productos/monitores/:id', (req, res) => {
+ let idProducto = req.params.id
+  p.findbyId(idProducto, (err, product) => {
+      if (err) res.status(500).send({message: 'Error al borrar el producto: ${err}'})
+
+      p.remove(err => {
+          if (err) res.status(580).send({message: 'Error al borrar el producto: ${err}'})
+          res.status(200).send({message: 'El Producto ha sido eliminado'})
+      })
+    })
+})
+
+//DELETE de un monitor por id utilizando mongoDB
+app.delete('/arqweb/productos/monitores/:id', (req, res) => {
+    let idProducto = req.params.id
+    let update = req.body
+
+     p.findbyIdandUpdate(idProducto, update, (err, productUpdated) => {
+         if (err) res.status(500).send({message: 'Error al actualizar el producto: ${err}'})
+   
+         res.status(200).send({message: 'El Producto ha sido Actualizado: ${err}'})
+         })
+       })
 
 // Submit de monitores
 app.post('/arqweb/productos/monitores', (req, res) => {
@@ -115,6 +162,15 @@ app.post('/arqweb/productos/monitores', (req, res) => {
     var nuevoMonitor = req.body;
     nuevoMonitor.Categoria = 'Monitor';
     console.log(nuevoMonitor);
+    MongoClient.connect(url, function(err, db){
+        assert.equal(null, err);
+        db.collection('Monitor').insertOne(nuevoMonitor,function(error, result){
+            assert.equal(null, error);
+            console.log('Insertado');
+            db.close();
+        });
+    
+    });
     _products.push(req.body);
     res.status(201).send(req.body);
 });
@@ -278,5 +334,3 @@ app.put('/arqweb/productos/procesador/:id', (req, res) => {
 app.listen(process.env.PORT || 3000, function () {
     console.log('API andando con express...');
 });
-
-
