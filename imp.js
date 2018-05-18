@@ -1,28 +1,27 @@
-const express    = require('express');
-const bodyParser = require('body-parser');
-const moment     = require('moment');
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+const express      =    require('express');
+const bodyParser   =    require('body-parser');
+const moment       =    require('moment');
+const MongoClient  =    require('mongodb').MongoClient;
+const assert       =    require('assert');
 
 const app = express();
 
 var _products = [
 
-    {id: 1, Categoria: 'Monitor', Tipo: 'Led-22Inch', Marca: 'Samsung', Precio: '6500' },
-    {id: 8, Categoria: 'Monitor', Tipo: 'Led-26Inch', Marca: 'Samsung', Precio: '8500' },
-    {id: 2, Categoria: 'GPU', Tipo: 'PCI-E', Marca: 'Asus', Precio: '23500' },
-	{id: 3, Categoria: 'Procesador', Tipo: 'i7-Socket-1150', Marca: 'Intel', Precio: '13500' },
-	{id: 4, Categoria: 'Placa Madre', Tipo: 'ATX', Marca: 'Asus', Precio: '3500' },
-	{id: 5, Categoria: 'Memoria', Tipo: 'DDR4-16GB', Marca: 'Corsair', Precio: '2500' },
-	{id: 6, Categoria: 'Placa de Video', Tipo: 'NVIDIA12GB', Marca: 'Asus', Precio: '25500' },
-	{id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' }
+        {id: 1, Categoria: 'Monitor', Tipo: 'Led-22Inch', Marca: 'Samsung', Precio: '6500' },
+        {id: 8, Categoria: 'Monitor', Tipo: 'Led-26Inch', Marca: 'Samsung', Precio: '8500' },
+        {id: 2, Categoria: 'GPU', Tipo: 'PCI-E', Marca: 'Asus', Precio: '23500' },
+        {id: 3, Categoria: 'Procesador', Tipo: 'i7-Socket-1150', Marca: 'Intel', Precio: '13500' },
+        {id: 4, Categoria: 'Placa Madre', Tipo: 'ATX', Marca: 'Asus', Precio: '3500' },
+        {id: 5, Categoria: 'Memoria', Tipo: 'DDR4-16GB', Marca: 'Corsair', Precio: '2500' },
+        {id: 6, Categoria: 'Placa de Video', Tipo: 'NVIDIA12GB', Marca: 'Asus', Precio: '25500' },
+        {id: 7, Categoria: 'Almacenamiento', Tipo: 'HD1TB', Marca: 'Seagate', Precio: '6500' }
 
 ];
 
 
-const url = 'mongodb://127.0.0.1:27017/test';
-
 //creo y conecto con la base de datos mongodb
+const url = 'mongodb://127.0.0.1:27017/test';
 
 
 // parse body as json
@@ -39,7 +38,7 @@ app.get('/', (req, res) => {
 
     let list = [];
     _products.forEach((p) => {
-
+    
 	    list.push(`<li>Id: ${p.id}</li>`);
         list.push(`<li>Categoria: ${p.Categoria}</li>`);
 		list.push(`<li>Tipo: ${p.Tipo}</li>`);
@@ -62,7 +61,6 @@ app.get('/', (req, res) => {
     );
 
 });
-
 
 
 // obtener todas las categorias
@@ -131,30 +129,43 @@ app.delete('/arqweb/productos/monitores/:id', (req, res) => {
 });
 */
 
-//DELETE de un monitor por id utilizando mongoDB
-app.delete('/arqweb/productos/monitores/:id', (req, res) => {
- let idProducto = req.params.id
-  p.findbyId(idProducto, (err, product) => {
-      if (err) res.status(500).send({message: 'Error al borrar el producto: ${err}'})
+//Update de un monitor por id utilizando mongoDB
+app.put('/arqweb/productos/monitores/:id', (req, res) => {
+    let idProducto = req.params.id;
+    let update = req.body;
 
-      p.remove(err => {
-          if (err) res.status(580).send({message: 'Error al borrar el producto: ${err}'})
-          res.status(200).send({message: 'El Producto ha sido eliminado'})
-      })
+    MongoClient.connect(url, function(err, db) {
+
+        if(err) { throw err;  }
+        var myquery = {id: idProducto};
+        var newvalues = { $set: update };
+        db.collection("Monitor").updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+          console.log("1 producto actualizado");
+          db.close();
+        //   res.status(200).send({message: 'El Producto '+ idProducto +' ha sido eliminado'})
+        });
+      });
     })
-})
 
-//UPDATE de un monitor por id utilizando mongoDB
+//Delete de un monitor por id utilizando mongoDB
 app.delete('/arqweb/productos/monitores/:id', (req, res) => {
-    let idProducto = req.params.id
-    let update = req.body
+    let idProducto = req.params.id;
+    var myquery = {id: idProducto};
+    let update = req.body;
 
-     p.findbyIdandUpdate(idProducto, update, (err, productUpdated) => {
-         if (err) res.status(500).send({message: 'Error al actualizar el producto: ${err}'})
-   
-         res.status(200).send({message: 'El Producto ha sido Actualizado: ${err}'})
-         })
-       })
+    MongoClient.connect(url, function(err, db) {
+
+        if(err) { throw err;  }
+        db.collection("Monitor").remove(myquery, function(err, obj) {
+            if (err) throw err;
+            console.log(obj.result.n + " document(s) deleted");
+            db.close();
+            
+          });
+      });
+      res.status(200).send({message: 'El Producto '+ idProducto +' ha sido eliminado'});
+    })
 
 // Submit de monitores
 app.post('/arqweb/productos/monitores', (req, res) => {
@@ -176,19 +187,19 @@ app.post('/arqweb/productos/monitores', (req, res) => {
 });
 
 // Update de monitores
-app.put('/arqweb/productos/monitores/:id', (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
-    var arrayLength = _products.length;
-    for (var i = 0; i < arrayLength; i++) {
-        if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Monitor'){
-            _products.splice(_products[i], 1);//borro el registro viejo
-            _products.push(req.body);//persisto el nuevo, faltaria validar que esten los campos completos en el json del request...
-            res.json(_products);
-        }
-    }
-    res.status(204).end();
-});
+// app.put('/arqweb/productos/monitores/:id', (req, res) => {
+//     console.log(req.body);
+//     console.log(req.params);
+//     var arrayLength = _products.length;
+//     for (var i = 0; i < arrayLength; i++) {
+//         if(_products[i].id == req.params.id  &&  _products[i].Categoria == 'Monitor'){
+//             _products.splice(_products[i], 1);//borro el registro viejo
+//             _products.push(req.body);//persisto el nuevo, faltaria validar que esten los campos completos en el json del request...
+//             res.json(_products);
+//         }
+//     }
+//     res.status(204).end();
+// });
 
 
 //-----------------------------------------------Placas de Videos---------------------------------------------------
