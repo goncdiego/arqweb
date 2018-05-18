@@ -144,7 +144,7 @@ app.delete('/arqweb/productos/monitores/:id', (req, res) => {
     })
 })
 
-//DELETE de un monitor por id utilizando mongoDB
+//UPDATE de un monitor por id utilizando mongoDB
 app.delete('/arqweb/productos/monitores/:id', (req, res) => {
     let idProducto = req.params.id
     let update = req.body
