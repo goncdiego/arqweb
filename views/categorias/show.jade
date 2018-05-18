@@ -1,0 +1,6 @@
+extends ../layout
+block content
+  h1 #{producto.nombre} #{producto.categoria} #{producto.descripcion} #{producto.precio}
+  div(style='white-space:pre;') #{producto.categoria}
+  br
+  a(href="/productos") Volver atrás

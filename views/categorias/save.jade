@@ -1,0 +1,24 @@
+extends ../layout
+block content
+  h1 Guardar producto
+  form(method="post", action="#{action}")
+    -if(put)
+      input(type="hidden", name="_method", value="PUT")
+    label Nombre
+    br
+    input(type="text", name="nombre", required="required", value="#{personaje.nombre}")
+    br
+    label Categoria
+    br
+    input(type="text", name="categoria", required="required", value="#{personaje.categoria}")
+    br
+    label Descripcion
+    br
+    textarea(name="descripcion", cols="50", rows="5", required="required") #{personaje.descripcion}
+    br
+    label Precio
+    br
+    input(type="text", name="precio", required="required", value="#{personaje.precio}")
+    br
+    input(type="submit", value="Guardar")
+    a(href="/productos") Cancelar
