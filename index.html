@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+      <head>
+	      <!-- Required meta tags -->
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	      <!-- Bootstrap CSS -->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	  
+	       <title> Bienvenido! </title> 
+		   
+		   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+		   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+		   <script src="controller.js" </script>
+		   
+		   <body>
+		        <div class="jumbotron">
+				  <h1 class="display-4">Bienvenido!</h1>
+				  <hr class="my-4">
+				  <p>Seleccione que hacer con el producto: </p>
+	           </div>
+		        <div ng-app="mainApp" ng-controller="CRUDController">
+				<table>
+				    <tr>
+					    <td>
+						    Id  
+						</td>
+						<td>
+						    {{Id}}    
+						</td>
+					</tr>
+					<tr>
+					    <td>Categoria</td>
+						<td><input type="text" ng-model="Categoria"></td>
+					</tr>
+					<tr>
+					    <td>Tipo</td>
+						<td><input type="text" ng-model="Tipo"></td>
+					</tr>
+					<tr>
+					    <td>Marca</td>
+						<td><input type="text" ng-model="Marca"></td>
+					</tr>
+					<tr>
+					    <td>Precio</td>
+						<td><input type="number" ng-model="Precio"></td>
+					</tr>
+					<tr>
+					    <td> <a class="btn btn-primary btn-lg" ng-click="Agregar()" href="#" role="button"> Agregar</a></td>
+						<td> <a class="btn btn-primary btn-lg" ng-click="Actualizar()" href="#" role="button"> Actualizar</a></td>
+					   <!-- <td><input type="button" ng-click="Agregar()" value="Agregar"></td> -->
+						<!-- <td><input type="button" ng-click="Actualizar()" value="Actualizar"></td>  -->
+					</tr>
+					
+					<table border="1" style="width:300px;">
+					   <thead>
+					      <th> Id </th>
+						  <th> Categoria </th>
+						  <th> Tipo </th>
+						  <th> Marca </th>
+						  <th> Precio </th>
+					    </thead>
+					
+					<tr  ng-click="Seleccionar(Product)" ng-repeat="Product!">
+					    <td>{{Product.Id}}</td>
+                        <td>{{Product.Categoria}}</td>
+                        <td>{{Product.Tipo}}</td>		
+                        <td>{{Product.Marca}}</td>		
+                        <td>{{Product.Precio}}</td>							
+						<td> <a class="btn btn-primary btn-lg" ng-click="Eliminar(Product)" href="#" role="button"> Eliminar</a></td>
+ 					    <!-- <td><input type="button" ng-click="Eliminar(Product)" value="Eliminar"></td> -->
+					</tr>
+					
+					</table>
+				</table>
+		   </body>
+	  </head>
+ </html>
